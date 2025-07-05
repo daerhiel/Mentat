@@ -1,25 +1,25 @@
 @let lexeme = _lexeme.value();
 
 @if (lexeme) {
-  <table>
-    <thead>
-      <tr>
-        <th>Text</th>
-        <th>Gloss</th>
-        <th>Meaning</th>
-        <th>Categories</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (form of lexeme.forms; track $index) {
-      <tr>
-        <td>{{ form.text }}</td>
-        <td>{{ form.gloss }}</td>
-        <td>{{ form.meaning }}</td>
-        <td>{{ form.categories.join(", ") }}</td>
-      </tr>
-      }
-    </tbody>
-  </table>
+<table>
+  <thead>
+    <tr>
+      <th>Text</th>
+      <th>Gloss</th>
+      <th>Meaning</th>
+      <th>Categories</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (form of lexeme.forms; track $index) {
+    <tr>
+      <td>{{ form.text }}</td>
+      <td>{{ form.gloss }}</td>
+      <td>{{ form.meaning }}</td>
+      <td>{{ form.categories.join(", ") }}</td>
+    </tr>
+    }
+  </tbody>
+</table>
 }
 <router-outlet />
