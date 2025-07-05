@@ -27,6 +27,16 @@
               }
             ],
             "styles": [
+              {
+                "input": "src/theme.azure-blue.scss",
+                "bundleName": "azure-blue",
+                "inject": false
+              },
+              {
+                "input": "src/theme.magenta-violet.scss",
+                "bundleName": "magenta-violet",
+                "inject": false
+              },
               "src/styles.scss"
             ]
           },
@@ -85,6 +95,16 @@
               }
             ],
             "styles": [
+              {
+                "input": "src/theme.azure-blue.scss",
+                "bundleName": "azure-blue",
+                "inject": false
+              },
+              {
+                "input": "src/theme.magenta-violet.scss",
+                "bundleName": "magenta-violet",
+                "inject": false
+              },
               "src/styles.scss"
             ]
           }
