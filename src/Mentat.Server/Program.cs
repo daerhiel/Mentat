@@ -15,7 +15,8 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: "Default", static policy => policy
         .WithOrigins("*")
-        .WithMethods("*"));
+        .WithMethods("*")
+        .WithHeaders("*"));
 });
 
 var app = builder.Build();

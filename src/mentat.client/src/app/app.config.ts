@@ -16,11 +16,11 @@ export const themes = [
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideAnimationsAsync(),
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideHttpClient(withInterceptors([])),
     provideRouter(routes),
-    provideAnimationsAsync(),
     provideThemes(themes)
   ]
 };

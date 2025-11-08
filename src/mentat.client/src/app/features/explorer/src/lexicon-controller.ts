@@ -10,4 +10,8 @@ export class LexiconController {
   getLexeme(word: string): Observable<Lexeme> {
     return this._http.get<Lexeme>(`${this._url}/${this._path}/lexeme?word=${word}`);
   }
+
+  getSyntax(text: string): Observable<Lexeme[]> {
+    return this._http.post<Lexeme[]>(`${this._url}/${this._path}/syntax`, { text });
+  }
 }

@@ -14,9 +14,9 @@ public class LexiconMediator(ChatClient chatClient, ISchemaCache schemaCache) : 
 
     public async Task<Lexeme> GetLexemeAsync(string word, CancellationToken cancellationToken = default)
     {
-        var request = ChatRequestBuilder.GetRequest<Lexeme>(word, "Hungarian", "English");
+        var request = ChatRequestBuilder.GetRequest<Lexeme>(word, "Hungarian", "Russian");
 
-        var schema =  await _schemaCache.GetAsync<Lexeme>();
+        var schema = await _schemaCache.GetAsync<Lexeme>();
 
         var options = new ChatCompletionOptions
         {
@@ -36,5 +36,31 @@ public class LexiconMediator(ChatClient chatClient, ISchemaCache schemaCache) : 
         }
 
         return JsonSerializer.Deserialize<Lexeme>(stream.ToString()) ?? throw new InvalidDataException();
+    }
+
+    public async Task<Sentence[]> GetSyntaxAsync(string text, CancellationToken cancellationToken = default)
+    {
+        var request = ChatRequestBuilder.GetRequest<Sentence>(text, "Hungarian", "Russian");
+
+        var schema = await _schemaCache.GetAsync<Sentence[]>();
+
+        var options = new ChatCompletionOptions
+        {
+            ResponseFormat = ChatResponseFormat.CreateJsonSchemaFormat(
+            jsonSchemaFormatName: "syntax_analysis",
+            jsonSchemaFormatDescription: "Syntax Analysis",
+            jsonSchema: BinaryData.FromObjectAsJson(schema))
+        };
+
+        var stream = new StringBuilder();
+        await foreach (var result in _chatClient.CompleteChatStreamingAsync([request], options, cancellationToken))
+        {
+            foreach (var message in result.ContentUpdate)
+            {
+                stream.Append(message.Text);
+            }
+        }
+
+        return JsonSerializer.Deserialize<Sentence[]>(stream.ToString()) ?? throw new InvalidDataException();
     }
 }

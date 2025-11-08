@@ -1,0 +1,7 @@
+<mat-form-field class="app-w-100">
+  <mat-label>Sentence or phrase</mat-label>
+  <textarea matInput placeholder="Enter text" [(ngModel)]="_input"></textarea>
+  <button mat-icon-button matSuffix [disabled]="!_input()" (click)="_analyze()">
+    <mat-icon>article</mat-icon>
+  </button>
+</mat-form-field>

@@ -6,4 +6,10 @@
   .app-spacer {
     flex: 1 1 auto;
   }
+
+  [app-portal] {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+  }
 }

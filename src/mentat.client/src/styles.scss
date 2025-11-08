@@ -13,6 +13,10 @@
     item-label-text-color: var(--mat-sys-on-surface),
     item-icon-color: var(--mat-sys-secondary),
   ));
+  @include mat.form-field-overrides((
+    disabled-input-text-placeholder-color: orange,
+    disabled-leading-icon-color: red,
+  ));
   @include mat.button-overrides((
     filled-container-color: var(--mat-sys-primary-container),
     filled-label-text-color: var(--mat-sys-primary),
@@ -29,4 +33,12 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+@for $i from 1 through 20 {
+  .app-w-#{$i} {
+    --multiplier: #{$i};
+    width: calc(var(--spacing) * var(--multiplier));
+    height: calc(var(--spacing) * var(--multiplier));
+  }
 }
