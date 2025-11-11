@@ -17,13 +17,13 @@ public class LexiconMediator(ChatClient chatClient, ISchemaCache schemaCache) : 
         var request = ChatRequestBuilder.GetRequest<Lexeme>(word, "Hungarian", "Russian");
 
         var schema = await _schemaCache.GetAsync<Lexeme>();
-
         var options = new ChatCompletionOptions
         {
             ResponseFormat = ChatResponseFormat.CreateJsonSchemaFormat(
-            jsonSchemaFormatName: "lexical_analysis",
-            jsonSchemaFormatDescription: "Lexical Analysis",
-            jsonSchema: BinaryData.FromObjectAsJson(schema))
+                jsonSchemaFormatName: "lexical_analysis",
+                jsonSchemaFormatDescription: "Lexical Analysis",
+                jsonSchema: BinaryData.FromObjectAsJson(schema)
+            )
         };
 
         var stream = new StringBuilder();
@@ -38,18 +38,18 @@ public class LexiconMediator(ChatClient chatClient, ISchemaCache schemaCache) : 
         return JsonSerializer.Deserialize<Lexeme>(stream.ToString()) ?? throw new InvalidDataException();
     }
 
-    public async Task<Sentence[]> GetSyntaxAsync(string text, CancellationToken cancellationToken = default)
+    public async Task<Sentence> GetSyntaxAsync(string text, CancellationToken cancellationToken = default)
     {
         var request = ChatRequestBuilder.GetRequest<Sentence>(text, "Hungarian", "Russian");
 
-        var schema = await _schemaCache.GetAsync<Sentence[]>();
-
+        var schema = await _schemaCache.GetAsync<Sentence>();
         var options = new ChatCompletionOptions
         {
             ResponseFormat = ChatResponseFormat.CreateJsonSchemaFormat(
-            jsonSchemaFormatName: "syntax_analysis",
-            jsonSchemaFormatDescription: "Syntax Analysis",
-            jsonSchema: BinaryData.FromObjectAsJson(schema))
+                jsonSchemaFormatName: "syntax_analysis",
+                jsonSchemaFormatDescription: "Syntax Analysis",
+                jsonSchema: BinaryData.FromObjectAsJson(schema)
+            )
         };
 
         var stream = new StringBuilder();
@@ -61,6 +61,6 @@ public class LexiconMediator(ChatClient chatClient, ISchemaCache schemaCache) : 
             }
         }
 
-        return JsonSerializer.Deserialize<Sentence[]>(stream.ToString()) ?? throw new InvalidDataException();
+        return JsonSerializer.Deserialize<Sentence>(stream.ToString()) ?? throw new InvalidDataException();
     }
 }

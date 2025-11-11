@@ -12,6 +12,8 @@ export class LexiconController {
   }
 
   getSyntax(text: string): Observable<Lexeme[]> {
-    return this._http.post<Lexeme[]>(`${this._url}/${this._path}/syntax`, { text });
+    return this._http.post<Lexeme[]>(`${this._url}/${this._path}/syntax`, JSON.stringify(text), {
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 }

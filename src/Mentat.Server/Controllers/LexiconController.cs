@@ -40,11 +40,11 @@ public class LexiconController(ILexiconMediator lexicon, IMemoryCache cache) : C
     /// <param name="token">Cancellation token for the operation.</param>
     /// <returns>An array of <see cref="Sentence"/> objects containing the syntax analysis.</returns>
     [HttpPost("syntax")]
-    public async Task<Sentence[]> GetSyntax([FromBody] Input input, CancellationToken token)
+    public async Task<Sentence> GetSyntax([FromBody] string input, CancellationToken token)
     {
-        return await _lexicon.GetSyntaxAsync(input.Text, token).ConfigureAwait(false);
-        //return await _cache.GetOrCreateAsync(text, async entry =>
-        //{
-        //}) ?? throw new InvalidDataException();
+        return await _cache.GetOrCreateAsync(input, async entry =>
+        {
+            return await _lexicon.GetSyntaxAsync(input, token).ConfigureAwait(false);
+        }) ?? throw new InvalidDataException();
     }
 }
